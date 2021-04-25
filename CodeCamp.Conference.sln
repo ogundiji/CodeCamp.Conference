@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{338D23D3-9EA8-4522-98F1-33D52FAF1A70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{63E423DB-143B-46A3-BCF4-CC5DC59FCDFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B6D15695-FAF3-4C4C-AE08-E0FCADB1E2AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{34184AE9-8BD9-4E3E-9D72-8B497FEAC95A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{EDD47450-CB6A-4CDE-B65E-DA6802C71443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Domain", "CodeCamp.Conference.Domain\CodeCamp.Conference.Domain.csproj", "{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{338D23D3-9EA8-4522-98F1-33D52FAF1A70} = {D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}
+		{63E423DB-143B-46A3-BCF4-CC5DC59FCDFC} = {D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}
+		{34184AE9-8BD9-4E3E-9D72-8B497FEAC95A} = {D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}
+		{EDD47450-CB6A-4CDE-B65E-DA6802C71443} = {D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}
+		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53} = {338D23D3-9EA8-4522-98F1-33D52FAF1A70}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8846B2FC-481E-445E-BE49-7DA181F913F6}
+	EndGlobalSection
+EndGlobal

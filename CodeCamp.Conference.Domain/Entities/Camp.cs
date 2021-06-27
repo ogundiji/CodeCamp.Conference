@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeCamp.Conference.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

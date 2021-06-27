@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using CodeCamp.Conference.Domain.Common;
 
 namespace CodeCamp.Conference.Domain.Entities
 {

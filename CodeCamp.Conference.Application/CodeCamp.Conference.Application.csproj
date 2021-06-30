@@ -1,12 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Response\" />
+    <Folder Include="Features\Camps\Command\" />
+    <Folder Include="Features\Camps\Queries\" />
+    <Folder Include="Features\Speakers\Query\" />
+    <Folder Include="Features\Talks\Command\" />
+    <Folder Include="Features\Talks\Query\" />
     <Folder Include="Profiles\" />
   </ItemGroup>
 

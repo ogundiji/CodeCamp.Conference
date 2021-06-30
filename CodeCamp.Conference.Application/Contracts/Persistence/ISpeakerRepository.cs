@@ -10,5 +10,6 @@ namespace CodeCamp.Conference.Application.Contracts.Persistence
     public interface ISpeakerRepository:IAsyncRepository<Speaker>
     {
         Task<Speaker[]> GetSpeakersByMonikerAsync(string moniker);
+        Task<bool> CheckIfGithubExist(string Github);
     }
 }

@@ -9,6 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
 {
     public class UpdateSpeakersCommand:IRequest<UpdateSpeakersResponse>
     {
+        public Guid SpeakerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }

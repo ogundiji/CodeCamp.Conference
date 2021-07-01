@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using CodeCamp.Conference.Application.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeaker
 {
-    public class DeleteSpeakerCommand:IRequest<DeleteSpeakerResponse>
+    public class DeleteSpeakerResponse:BaseResponse
     {
-        public Guid SpeakerId { get; set; }
+        public DeleteSpeakerResponse():base()
+        {
+
+        }
     }
 }

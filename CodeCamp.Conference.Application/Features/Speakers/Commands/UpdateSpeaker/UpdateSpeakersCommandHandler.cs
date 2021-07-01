@@ -25,24 +25,40 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
         public async Task<UpdateSpeakersResponse> Handle(UpdateSpeakersCommand request, CancellationToken cancellationToken)
         {
             var SpeakerToUpdate = await repository.GetByIdAsync(request.SpeakerId);
+            var speakerResponse= new UpdateSpeakersResponse();
 
             if (SpeakerToUpdate == null)
             {
+                speakerResponse.Success=false;
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
             }
+
+
 
             var validator = new UpdateSpeakersCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
 
 
             if (validationResult.Errors.Count > 0)
+            {
+                speakerResponse.Success=false;
+                speakerResponse.ValidationErrors=new List<string>();
+                foreach (var error in validationResult.Errors)
+                {
+                    speakerResponse.ValidationErrors.Add(error.ErrorMessage);
+                }
                 throw new ValidationException(validationResult);
+            }
 
-             mapper.Map(request, SpeakerToUpdate, typeof(UpdateSpeakersCommand), typeof(Speaker));
+            if (speakerResponse.Success)
+            {
+              
+                mapper.Map(request, SpeakerToUpdate, typeof(UpdateSpeakersCommand), typeof(Speaker));
+                await repository.UpdateAsync(SpeakerToUpdate);
 
-            await repository.UpdateAsync(SpeakerToUpdate);
-
-            return new UpdateSpeakersResponse();
+            }
+                
+            return speakerResponse;
         }
     }
 }

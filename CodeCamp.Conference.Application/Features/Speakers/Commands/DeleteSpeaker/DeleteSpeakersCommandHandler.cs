@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Application.Exceptions;
+using CodeCamp.Conference.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeaker
 {
-    public class DeleteSpeakersCommandHandler : IRequestHandler<DeleteSpeakerCommand>
+    public class DeleteSpeakersCommandHandler : IRequestHandler<DeleteSpeakerCommand,DeleteSpeakerResponse>
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
@@ -22,18 +23,23 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
         }
        
 
-        public async Task<Unit> Handle(DeleteSpeakerCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteSpeakerResponse> Handle(DeleteSpeakerCommand request, CancellationToken cancellationToken)
         {
-            var lol = await speakerRepository.GetByIdAsync(request.SpeakerId);
+            var speakerToDelete = await speakerRepository.GetByIdAsync(request.SpeakerId);
+            var speakerResponse = new DeleteSpeakerResponse();
 
-            if (lol == null)
+            if (speakerToDelete == null)
             {
-                throw new NotFoundException(nameof(Speakers), request.SpeakerId);
+                speakerResponse.Success = false;
+                throw new NotFoundException(nameof(Speaker), request.SpeakerId);
             }
 
-            await speakerRepository.DeleteAsync(lol);
+            if (speakerResponse.Success)
+            {
+                await speakerRepository.DeleteAsync(speakerToDelete);
+            }
 
-            return Unit.Value;
+            return speakerResponse;
         }
     }
 }

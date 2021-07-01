@@ -12,5 +12,6 @@ namespace CodeCamp.Conference.Application.Contracts.Persistence
         Task<Camp[]> GetAllCampsAsync(bool includeTalks = false);
         Task<Camp> GetCampAsync(string moniker, bool includeTalks = false);
         Task<Camp[]> GetAllCampsByEventDate(DateTime dateTime, bool includeTalks = false);
+        Task<bool> CheckIfMonikerExist(string moniker);
     }
 }

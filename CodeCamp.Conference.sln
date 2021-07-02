@@ -17,7 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{EDD47450-CB6A-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCamp.Conference.Domain", "CodeCamp.Conference.Domain\CodeCamp.Conference.Domain.csproj", "{8DDF386C-5215-47AB-9ABC-866EAD6ADD53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Application", "CodeCamp.Conference.Application\CodeCamp.Conference.Application.csproj", "{99571242-A1FE-41B5-9E9C-54B5ECBA86C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCamp.Conference.Application", "CodeCamp.Conference.Application\CodeCamp.Conference.Application.csproj", "{99571242-A1FE-41B5-9E9C-54B5ECBA86C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Persistence", "CodeCamp.Conference.Persistence\CodeCamp.Conference.Persistence.csproj", "{0D5CCE37-C653-4B78-95C6-0096351A58C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Infrastructure", "CodeCamp.Conference.Infrastructure\CodeCamp.Conference.Infrastructure.csproj", "{8483ABD4-5834-41E1-B47F-75619EAEF119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{99571242-A1FE-41B5-9E9C-54B5ECBA86C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99571242-A1FE-41B5-9E9C-54B5ECBA86C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99571242-A1FE-41B5-9E9C-54B5ECBA86C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D5CCE37-C653-4B78-95C6-0096351A58C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5CCE37-C653-4B78-95C6-0096351A58C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5CCE37-C653-4B78-95C6-0096351A58C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5CCE37-C653-4B78-95C6-0096351A58C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +56,8 @@ Global
 		{EDD47450-CB6A-4CDE-B65E-DA6802C71443} = {D68F2D2A-7872-4353-A517-B8D0EF0DEFB8}
 		{8DDF386C-5215-47AB-9ABC-866EAD6ADD53} = {338D23D3-9EA8-4522-98F1-33D52FAF1A70}
 		{99571242-A1FE-41B5-9E9C-54B5ECBA86C8} = {338D23D3-9EA8-4522-98F1-33D52FAF1A70}
+		{0D5CCE37-C653-4B78-95C6-0096351A58C7} = {63E423DB-143B-46A3-BCF4-CC5DC59FCDFC}
+		{8483ABD4-5834-41E1-B47F-75619EAEF119} = {63E423DB-143B-46A3-BCF4-CC5DC59FCDFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8846B2FC-481E-445E-BE49-7DA181F913F6}

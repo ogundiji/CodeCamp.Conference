@@ -10,20 +10,23 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerByMoniker
 {
-    public class GetAllSpeakerQueryHandler : IRequestHandler<GetAllSpeakerQuery, SpeakerDto[]>
+    public class GetAllSpeakerByMonikerQueryHandler : IRequestHandler<GetAllSpeakerByMonikerQuery, SpeakerResponse>
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
-        public GetAllSpeakerQueryHandler(ISpeakerRepository speakerRepository, IMapper mapper)
+        public GetAllSpeakerByMonikerQueryHandler(ISpeakerRepository speakerRepository, IMapper mapper)
         {
             this.speakerRepository = speakerRepository;
             this.mapper = mapper;
         }
-        public async Task<SpeakerDto[]> Handle(GetAllSpeakerQuery request, CancellationToken cancellationToken)
+        public async Task<SpeakerResponse> Handle(GetAllSpeakerByMonikerQuery request, CancellationToken cancellationToken)
         {
             var allSpeakerRecord = await speakerRepository.GetSpeakersByMonikerAsync(request.Moniker);
+            var response = new SpeakerResponse();
 
-            return mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+            response.data = mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+
+            return response;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using CodeCamp.Conference.Application.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerByMoniker
 {
-    public class GetAllSpeakerQuery:IRequest<SpeakerDto[]>
+    public class SpeakerResponse:BaseResponse
     {
-        public string Moniker { get; set; }
+        public SpeakerDto[] data { get; set; }
+        public SpeakerResponse():base()
+        {
+
+        }
     }
 }

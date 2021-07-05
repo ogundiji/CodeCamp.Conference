@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp
 {
-    public class GetAllCampQueryHandler : IRequestHandler<GetAllCampQuery, CampDto[]>
+    public class GetAllCampQueryHandler : IRequestHandler<GetAllCampQuery, CampResponse>
     {
         private readonly ICampRepository campRepository;
         private readonly IMapper mapper;
@@ -20,11 +20,18 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp
             this.mapper = mapper;
         }
 
-        public async Task<CampDto[]> Handle(GetAllCampQuery request, CancellationToken cancellationToken)
+        public async Task<CampResponse> Handle(GetAllCampQuery request, CancellationToken cancellationToken)
         {
+            
             var allCampRecord = await campRepository.GetAllCampsAsync(request.includeSpeakers);
+            var response = new CampResponse();
 
-            return mapper.Map<CampDto[]>(allCampRecord);
+
+            if (response.Success)
+            {
+                response.data= mapper.Map<CampDto[]>(allCampRecord);
+            }
+            return response;
         }
     }
 }

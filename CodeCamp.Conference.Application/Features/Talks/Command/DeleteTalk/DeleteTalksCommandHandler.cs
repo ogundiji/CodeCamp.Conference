@@ -1,11 +1,7 @@
-﻿using AutoMapper;
-using CodeCamp.Conference.Application.Contracts.Persistence;
+﻿using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Application.Exceptions;
+using CodeCamp.Conference.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,12 +9,12 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 {
     public class DeleteTalksCommandHandler : IRequestHandler<DeleteTalkCommand, DeleteTalkCommandResponse>
     {
-        private readonly IMapper mapper;
         private readonly ITalkRepository talkRepository;
         public DeleteTalksCommandHandler(ITalkRepository talkRepository)
         {
             this.talkRepository = talkRepository;
         }
+
         public async Task<DeleteTalkCommandResponse> Handle(DeleteTalkCommand request, CancellationToken cancellationToken)
         {
             var talkToDelete = await talkRepository.GetByIdAsync(request.TalkId);
@@ -27,7 +23,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
             if (talkToDelete == null)
             {
                 talkDeleteResponse.Success = false;
-                throw new NotFoundException(nameof(Talks), request.TalkId);
+                throw new NotFoundException(nameof(Talk), request.TalkId);
             }
 
             if (talkDeleteResponse.Success)

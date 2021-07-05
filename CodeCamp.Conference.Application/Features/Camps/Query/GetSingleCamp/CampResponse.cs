@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using CodeCamp.Conference.Application.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
 {
-    public class GetSingleCampQuery:IRequest<CampResponse>
+    public class CampResponse:BaseResponse
     {
-        public string moniker { get; set; }
-        public bool includeTalks { get; set; }
+        public CampDto data { get; set; }
+        public CampResponse():base()
+        {
+
+        }
     }
 }

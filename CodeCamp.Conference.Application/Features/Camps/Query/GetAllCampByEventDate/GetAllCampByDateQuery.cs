@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEventDate
 {
-    public class GetAllCampByDateQuery:IRequest<CampDto[]>
+    public class GetAllCampByDateQuery:IRequest<CampResponse>
     {
         public DateTime dateTime { get; set; }
         public bool includeSpeakers { get; set; }

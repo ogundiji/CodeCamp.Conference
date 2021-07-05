@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
 {
-    public class GetSingleCampQueryHandler : IRequestHandler<GetSingleCampQuery, CampDto>
+    public class GetSingleCampQueryHandler : IRequestHandler<GetSingleCampQuery, CampResponse>
     {
         private readonly ICampRepository campRepository;
         private readonly IMapper mapper;
@@ -15,11 +15,16 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
             this.campRepository = campRepository;
             this.mapper = mapper;
         }
-        public async Task<CampDto> Handle(GetSingleCampQuery request, CancellationToken cancellationToken)
+        public async Task<CampResponse> Handle(GetSingleCampQuery request, CancellationToken cancellationToken)
         {
             var campRecord = await campRepository.GetCampAsync(request.moniker, request.includeTalks);
+            var response = new CampResponse();
 
-            return mapper.Map<CampDto>(campRecord);
+            if (response.Success)
+            {
+                response.data= mapper.Map<CampDto>(campRecord);
+            }
+            return response;
         }
     }
 }

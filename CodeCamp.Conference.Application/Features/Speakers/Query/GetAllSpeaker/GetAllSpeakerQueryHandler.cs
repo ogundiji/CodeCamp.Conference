@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetAllSpeaker
 {
-    public class GetAllSpeakerQueryHandler : IRequestHandler<GetAllSpeakerQuery, SpeakerDto[]>
+    public class GetAllSpeakerQueryHandler : IRequestHandler<GetAllSpeakerQuery, SpeakerResponse>
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
@@ -15,11 +15,17 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetAllSpeaker
             this.speakerRepository = speakerRepository;
             this.mapper = mapper;
         }
-        public async Task<SpeakerDto[]> Handle(GetAllSpeakerQuery request, CancellationToken cancellationToken)
+        public async Task<SpeakerResponse> Handle(GetAllSpeakerQuery request, CancellationToken cancellationToken)
         {
             var allSpeakerRecord = await speakerRepository.ListAllAsync();
+            var response = new SpeakerResponse();
 
-            return mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+            if (response.Success)
+            {
+                response.data= mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+            }
+
+            return response;
         }
     }
 }

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Persist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Infrastructure", "CodeCamp.Conference.Infrastructure\CodeCamp.Conference.Infrastructure.csproj", "{8483ABD4-5834-41E1-B47F-75619EAEF119}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.Api", "CodeCamp.Conference.Api\CodeCamp.Conference.Api.csproj", "{32FEF67D-F9AF-41E2-A822-CAB17060182E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8483ABD4-5834-41E1-B47F-75619EAEF119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32FEF67D-F9AF-41E2-A822-CAB17060182E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32FEF67D-F9AF-41E2-A822-CAB17060182E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32FEF67D-F9AF-41E2-A822-CAB17060182E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32FEF67D-F9AF-41E2-A822-CAB17060182E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{99571242-A1FE-41B5-9E9C-54B5ECBA86C8} = {338D23D3-9EA8-4522-98F1-33D52FAF1A70}
 		{0D5CCE37-C653-4B78-95C6-0096351A58C7} = {63E423DB-143B-46A3-BCF4-CC5DC59FCDFC}
 		{8483ABD4-5834-41E1-B47F-75619EAEF119} = {63E423DB-143B-46A3-BCF4-CC5DC59FCDFC}
+		{32FEF67D-F9AF-41E2-A822-CAB17060182E} = {34184AE9-8BD9-4E3E-9D72-8B497FEAC95A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8846B2FC-481E-445E-BE49-7DA181F913F6}

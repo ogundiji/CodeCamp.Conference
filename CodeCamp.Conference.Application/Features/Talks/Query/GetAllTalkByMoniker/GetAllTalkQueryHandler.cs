@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalkByMoniker
 {
-    public class GetAllTalkQueryHandler : IRequestHandler<GetAllTalkQuery, TalkDto[]>
+    public class GetAllTalkQueryHandler : IRequestHandler<GetAllTalkQuery, TalkResponse>
     {
         private readonly IMapper mapper;
         private readonly ITalkRepository talkRepository;
@@ -19,12 +19,16 @@ namespace CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalkByMonik
             this.mapper = mapper;
             this.talkRepository = talkRepository;
         }
-        public async Task<TalkDto[]> Handle(GetAllTalkQuery request, CancellationToken cancellationToken)
+        public async Task<TalkResponse> Handle(GetAllTalkQuery request, CancellationToken cancellationToken)
         {
+            var response = new TalkResponse();
             var allTalkRecord = await talkRepository
                 .GetTalksByMonikerAsync(request.moniker, request.includeSpeakers);
 
-            return mapper.Map<TalkDto[]>(allTalkRecord);
+
+            response.data= mapper.Map<TalkDto[]>(allTalkRecord);
+
+            return response;
         }
     }
 }

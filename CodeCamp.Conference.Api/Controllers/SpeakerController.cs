@@ -34,7 +34,7 @@ namespace CodeCamp.Conference.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetSpeakerByMoniker")]
+        [Route("GetSpeakerByMoniker/{moniker}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(string moniker)
         {
@@ -42,10 +42,10 @@ namespace CodeCamp.Conference.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetSpeakerById")]
+        [Route("GetSpeakerById/{SpeakerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromHeader] Guid SpeakerId)
+        public async Task<IActionResult> Get(Guid SpeakerId)
         {
             return Ok(await mediator.Send(new GetSpeakerQuery() { SpeakerId = SpeakerId }));
         }
@@ -74,12 +74,12 @@ namespace CodeCamp.Conference.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteSpeaker")]
+        [Route("DeleteSpeaker/{speakerId}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteSpeaker([FromHeader] Guid speakerId)
+        public async Task<IActionResult> DeleteSpeaker(Guid speakerId)
         {
             return Ok(await mediator.Send(new DeleteSpeakerCommand() { SpeakerId=speakerId }));
         }

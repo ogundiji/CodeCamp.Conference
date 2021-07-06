@@ -18,7 +18,7 @@ namespace CodeCamp.Conference.Persistence.Repository
         }
         public async Task<bool> CheckIfGithubExist(string Github)
         {
-            return await context.Speakers.AnyAsync(x => x.GitHub.ToUpper() == Github.ToUpper());
+            return !(await context.Speakers.AnyAsync(x => x.GitHub.ToUpper() == Github.ToUpper()));
         }
 
         public async Task<Speaker[]> GetSpeakersByMonikerAsync(string moniker)

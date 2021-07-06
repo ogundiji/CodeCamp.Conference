@@ -5,6 +5,7 @@ using CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp;
 using CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeaker;
 using CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeaker;
 using CodeCamp.Conference.Application.Features.Speakers.Query.GetAllSpeaker;
+using CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerById;
 using CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk;
 using CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk;
 using CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalkByMoniker;
@@ -18,7 +19,9 @@ namespace CodeCamp.Conference.Application.Profiles
         {
             CreateMap<CreateSpeakerCommand,Speaker>();
             CreateMap<UpdateSpeakersCommand,Speaker>();
-            CreateMap<Speaker, SpeakerDto>();
+            CreateMap<Speaker, SpeakerDto>().ReverseMap();
+            CreateMap<Speaker, GetSpeakerDto>().ReverseMap();
+
 
 
             CreateMap<CreateTalksCommand,Talk>();

@@ -9,9 +9,9 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk
 {
     public class UpdateTalkResponse:BaseResponse
     {
+        public List<string> ValidationErrors { get; set; }
         public UpdateTalkResponse():base()
         {
-
         }
     }
 }

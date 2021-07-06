@@ -9,6 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.UpdateCamp
 {
     public class UpdateCampResponse:BaseResponse
     {
+        public List<string> ValidationErrors { get; set; }
         public UpdateCampResponse():base()
         {
 

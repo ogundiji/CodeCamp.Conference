@@ -24,8 +24,12 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerByMo
             var allSpeakerRecord = await speakerRepository.GetSpeakersByMonikerAsync(request.Moniker);
             var response = new SpeakerResponse();
 
-            response.data = mapper.Map<SpeakerDto[]>(allSpeakerRecord);
-
+            if (response.Success)
+            {
+                response.Message = "Successfully Retrieved Record";
+                response.data = mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+            }
+           
             return response;
         }
     }

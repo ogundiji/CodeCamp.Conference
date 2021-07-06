@@ -9,6 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
 {
     public class UpdateSpeakersResponse:BaseResponse
     {
+        public List<string> ValidationErrors { get; set; }
         public UpdateSpeakersResponse():base()
         {
                         

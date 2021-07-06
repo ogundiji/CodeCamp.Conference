@@ -53,9 +53,6 @@ namespace CodeCamp.Conference.Api.Controllers
 
         [HttpPost]
         [Route("CreateSpeaker")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSpeaker([FromBody] CreateSpeakerCommand createSpeakerCommand)
         {
             return Ok(await mediator.Send(createSpeakerCommand));

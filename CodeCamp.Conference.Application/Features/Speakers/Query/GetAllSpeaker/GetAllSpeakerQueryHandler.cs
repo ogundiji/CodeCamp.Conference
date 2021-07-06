@@ -22,6 +22,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetAllSpeaker
 
             if (response.Success)
             {
+                response.Message = "Successfully Retrieved Record";
                 response.data= mapper.Map<SpeakerDto[]>(allSpeakerRecord);
             }
 

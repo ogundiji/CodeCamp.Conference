@@ -9,9 +9,9 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
 {
     public class CreateTalksCommandResponse:BaseResponse
     {
+        public List<string> ValidationErrors { get; set; }
         public CreateTalksCommandResponse():base()
         {
-
         }
     }
 }

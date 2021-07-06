@@ -30,12 +30,20 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerById
             {
                 response.data = null;
                 response.Success = false;
+                response.Message = "Record Not Found";
 
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
             }
 
-            response.data = mapper.Map<SpeakerDto>(speakerRecord);
-
+            if (response.Success)
+            {
+                var lol = mapper.Map<GetSpeakerDto>(speakerRecord);
+                response.Message = "Successfully retrieve a record";
+                response.data = lol;
+            }
+            
+            
+                
 
             return response;
 

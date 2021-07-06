@@ -24,8 +24,8 @@ namespace CodeCamp.Conference.Application.Response
             Message = message;
         }
 
+        public int statusCode { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
-        public List<string> ValidationErrors { get; set; }
     }
 }

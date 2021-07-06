@@ -1,3 +1,6 @@
+using CodeCamp.Conference.Api.Middleware;
+using CodeCamp.Conference.Application;
+using CodeCamp.Conference.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +35,10 @@ namespace CodeCamp.Conference.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeCamp.Conference.Api", Version = "v1" });
             });
+
+            services.AddPersistenceServices(Configuration);
+            services.AddApplicationServices();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +50,7 @@ namespace CodeCamp.Conference.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CodeCamp.Conference.Api v1"));
             }
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
 

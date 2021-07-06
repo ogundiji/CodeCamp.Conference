@@ -4,8 +4,6 @@ using CodeCamp.Conference.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +36,10 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
 
             if (speakerResponse.Success)
             {
+                speakerResponse.Message = "Successfully created";
                 var speaker = mapper.Map<Speaker>(request);
+                speaker.CreateDate = DateTime.Now;
+                speaker.CreatedBy = "yusuf";
                 await speakerRepository.AddAsync(speaker);
             }
             return speakerResponse;

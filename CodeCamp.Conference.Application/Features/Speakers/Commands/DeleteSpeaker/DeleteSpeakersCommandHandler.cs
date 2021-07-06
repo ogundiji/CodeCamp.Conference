@@ -27,11 +27,13 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
             if (speakerToDelete == null)
             {
                 speakerResponse.Success = false;
+                speakerResponse.Message = "record not found";
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
             }
 
             if (speakerResponse.Success)
             {
+                speakerResponse.Message = "Successfully Deleted Record";
                 await speakerRepository.DeleteAsync(speakerToDelete);
             }
 

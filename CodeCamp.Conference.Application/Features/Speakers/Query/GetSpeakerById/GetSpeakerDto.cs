@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerById
 {
-    public class SpeakerDto
+    public class GetSpeakerDto
     {
         public Guid SpeakerId { get; set; }
         public string FirstName { get; set; }

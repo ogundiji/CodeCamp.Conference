@@ -50,6 +50,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk
             if (validationResult.Errors.Count > 0)
             {
                 talkResponse.Success = false;
+                talkResponse.Message = "Record Not Found";
                 talkResponse.ValidationErrors = new List<string>();
                 foreach (var error in validationResult.Errors)
                 {

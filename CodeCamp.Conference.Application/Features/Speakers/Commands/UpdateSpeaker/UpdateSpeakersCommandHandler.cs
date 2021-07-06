@@ -30,14 +30,12 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
             if (SpeakerToUpdate == null)
             {
                 speakerResponse.Success=false;
+                speakerResponse.Message = "Speaker not found";
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
             }
 
-
-
             var validator = new UpdateSpeakersCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
-
 
             if (validationResult.Errors.Count > 0)
             {
@@ -45,17 +43,16 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
                 speakerResponse.ValidationErrors=new List<string>();
                 foreach (var error in validationResult.Errors)
                 {
-                    speakerResponse.ValidationErrors.Add(error.ErrorMessage);
+                   speakerResponse.ValidationErrors.Add(error.ErrorMessage);
                 }
                 throw new ValidationException(validationResult);
             }
 
             if (speakerResponse.Success)
             {
-              
+                speakerResponse.Message = "update successfully";
                 mapper.Map(request, SpeakerToUpdate, typeof(UpdateSpeakersCommand), typeof(Speaker));
                 await repository.UpdateAsync(SpeakerToUpdate);
-
             }
                 
             return speakerResponse;

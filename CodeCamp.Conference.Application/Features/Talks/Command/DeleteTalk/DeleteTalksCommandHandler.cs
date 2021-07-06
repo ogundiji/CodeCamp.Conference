@@ -22,12 +22,14 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 
             if (talkToDelete == null)
             {
+                talkDeleteResponse.Message = "Record Not Found";
                 talkDeleteResponse.Success = false;
                 throw new NotFoundException(nameof(Talk), request.TalkId);
             }
 
             if (talkDeleteResponse.Success)
             {
+                talkDeleteResponse.Message = "Successfully Deleted";
                 await talkRepository.DeleteAsync(talkToDelete);
             }
 

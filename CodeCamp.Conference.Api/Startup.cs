@@ -1,5 +1,6 @@
 using CodeCamp.Conference.Api.Middleware;
 using CodeCamp.Conference.Application;
+using CodeCamp.Conference.Identity;
 using CodeCamp.Conference.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace CodeCamp.Conference.Api
 
             services.AddPersistenceServices(Configuration);
             services.AddApplicationServices();
+            services.AddIdentityServices(Configuration);
 
         }
 

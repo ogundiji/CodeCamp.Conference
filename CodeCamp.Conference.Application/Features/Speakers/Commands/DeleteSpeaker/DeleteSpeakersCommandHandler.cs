@@ -26,6 +26,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
 
             if (speakerToDelete == null)
             {
+                speakerResponse.statusCode = 404;
                 speakerResponse.Success = false;
                 speakerResponse.Message = "record not found";
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
@@ -33,6 +34,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
 
             if (speakerResponse.Success)
             {
+                speakerResponse.statusCode = 200;
                 speakerResponse.Message = "Successfully Deleted Record";
                 await speakerRepository.DeleteAsync(speakerToDelete);
             }

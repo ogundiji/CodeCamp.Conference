@@ -31,7 +31,9 @@ namespace CodeCamp.Conference.Application.Features.Talks.Query.GetTalkById
 
             if (response.Success)
             {
-                response.data = mapper.Map<TalkDto>(talkRecord);
+                response.statusCode = 200;
+                response.Message = "successfully retrieved record";
+                response.data = mapper.Map<GetTalkVm>(talkRecord);
             }
 
             return response;

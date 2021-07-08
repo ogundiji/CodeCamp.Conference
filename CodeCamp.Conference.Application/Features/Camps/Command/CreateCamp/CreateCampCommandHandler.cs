@@ -33,12 +33,14 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
             if (talk == null)
             {
                 campResponse.Success = false;
+                campResponse.statusCode = 404;
                 throw new NotFoundException(nameof(Talk), request.TalkId);
             }
 
             if (campValidationResult.Errors.Count > 0)
             {
                 campResponse.Success = false;
+                campResponse.statusCode = 400;
                 campResponse.ValidationErrors = new List<string>();
                 foreach (var error in campValidationResult.Errors)
                 {
@@ -48,6 +50,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
 
             if (campResponse.Success)
             {
+                campResponse.statusCode = 201;
                 request.talks = talk;
                 var campToCreate= mapper.Map<Camp>(request);
                 await campRepository.AddAsync(campToCreate);

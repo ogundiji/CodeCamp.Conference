@@ -35,6 +35,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
 
             if (speaker == null)
             {
+                talkResponse.statusCode = 404;
                 talkResponse.Success = false;
                 talkResponse.Message = "record not found";
                 throw new NotFoundException(nameof(Speakers), request.SpeakerId);
@@ -52,6 +53,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
 
             if (talkResponse.Success)
             {
+                talkResponse.statusCode = 200;
                 talkResponse.Message = "Created Successfully";
                 request.speaker = speaker;
                 var talk = mapper.Map<Talk>(request);

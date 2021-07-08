@@ -61,6 +61,8 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk
 
             if (talkResponse.Success)
             {
+                talkResponse.statusCode = 200;
+                talkResponse.Message = "successfully updated record";
                 request.speaker = SpeakerToUpdate;
                 mapper.Map(request, TalkToUpdate, typeof(UpdateTalkCommand), typeof(Talk));
                 await talkRepository.UpdateAsync(TalkToUpdate);

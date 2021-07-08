@@ -21,12 +21,14 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.DeleteCamp
 
             if (campToDelete == null)
             {
+                deleteCampResponse.statusCode = 404;
                 deleteCampResponse.Success = false;
                 throw new NotFoundException(nameof(Camp), request.campId);
             }
 
             if (deleteCampResponse.Success)
             {
+                deleteCampResponse.statusCode = 200;
                 await campRepository.DeleteAsync(campToDelete);
             }
 

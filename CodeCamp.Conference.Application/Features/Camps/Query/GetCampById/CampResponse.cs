@@ -9,7 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetCampById
 {
     public class CampResponse:BaseResponse
     {
-        public CampDto data { get; set; }
+        public CampByIdDto data { get; set; }
         public CampResponse():base()
         {
         }

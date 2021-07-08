@@ -9,7 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerByMo
 {
     public class SpeakerResponse:BaseResponse
     {
-        public SpeakerDto[] data { get; set; }
+        public SpeakerVm[] data { get; set; }
         public SpeakerResponse():base()
         {
 

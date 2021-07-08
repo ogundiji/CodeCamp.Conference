@@ -22,7 +22,9 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
 
             if (response.Success)
             {
-                response.data= mapper.Map<CampDto>(campRecord);
+                response.statusCode = 200;
+                response.Message = "successfully retrieved record";
+                response.data= mapper.Map<CampVm>(campRecord);
             }
             return response;
         }

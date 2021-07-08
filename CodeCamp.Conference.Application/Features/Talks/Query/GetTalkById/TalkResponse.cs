@@ -9,7 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Query.GetTalkById
 {
     public class TalkResponse:BaseResponse
     {
-        public TalkDto data { get; set; }
+        public GetTalkVm data { get; set; }
         public TalkResponse():base()
         {
         }

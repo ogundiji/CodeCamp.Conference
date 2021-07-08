@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeCamp.Conference.Application.Features.Talks.Query.GetTalkById
+namespace CodeCamp.Conference.Application.Features.Talks.Query.GetSingleTalkByMoniker
 {
-    public class TalkDto
+    public class SingleTalkDto
     {
         public Guid TalkId { get; set; }
         public Camp Camp { get; set; }

@@ -1,13 +1,10 @@
 ﻿using CodeCamp.Conference.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEventDate
+namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
 {
-    public class CampDto
+    public class CampVm
     {
         public Guid CampId { get; set; }
         public string Name { get; set; }

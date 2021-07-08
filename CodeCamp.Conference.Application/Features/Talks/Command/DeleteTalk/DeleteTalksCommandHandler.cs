@@ -22,6 +22,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 
             if (talkToDelete == null)
             {
+                talkDeleteResponse.statusCode = 404;
                 talkDeleteResponse.Message = "Record Not Found";
                 talkDeleteResponse.Success = false;
                 throw new NotFoundException(nameof(Talk), request.TalkId);
@@ -29,6 +30,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 
             if (talkDeleteResponse.Success)
             {
+                talkDeleteResponse.statusCode = 200;
                 talkDeleteResponse.Message = "Successfully Deleted";
                 await talkRepository.DeleteAsync(talkToDelete);
             }

@@ -25,7 +25,13 @@ namespace CodeCamp.Conference.Application.Features.Talks.Query.GetSingleTalkByMo
             var talkRecord = await talkRepository
                 .GetSingleTalkByMonikerAsync(request.moniker, request.TalkId, request.includeSpeaker);
 
-            response.data = mapper.Map<TalkDto>(talkRecord);
+            if (response.Success)
+            {
+                response.data = mapper.Map<SingleTalkDto>(talkRecord);
+                response.statusCode = 200;
+                response.Message = "Successfully retrieved record";
+            }
+           
             return response;
         }
     }

@@ -9,7 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
 {
     public class CampResponse:BaseResponse
     {
-        public CampDto data { get; set; }
+        public CampVm data { get; set; }
         public CampResponse():base()
         {
 

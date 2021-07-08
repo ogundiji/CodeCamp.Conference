@@ -4,7 +4,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEvent
 {
     public class CampResponse:BaseResponse
     {
-        public CampDto[] data { get; set; }
+        public CampByEventDto[] data { get; set; }
         public CampResponse()
         {
 

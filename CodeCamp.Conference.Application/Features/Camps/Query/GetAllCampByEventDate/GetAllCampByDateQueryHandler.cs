@@ -25,7 +25,9 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEvent
 
             if (response.Success)
             {
-                response.data = mapper.Map<CampDto[]>(allCampRecordByDate);
+                response.statusCode = 200;
+                response.Message = "Successfully retrieved record";
+                response.data = mapper.Map<CampByEventDto[]>(allCampRecordByDate);
             }
 
             return response ;

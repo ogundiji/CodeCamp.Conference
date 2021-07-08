@@ -25,13 +25,16 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetCampById
 
             if (campRecord == null)
             {
+                response.statusCode = 404;
                 response.Success = false;
                 throw new NotFoundException(nameof(Camp), request.campId);
             }
 
             if (response.Success)
             {
-                response.data = mapper.Map<CampDto>(campRecord);
+                response.statusCode = 200;
+                response.Message = "Successfully retrieved record";
+                response.data = mapper.Map<CampByIdDto>(campRecord);
             }
 
             return response;

@@ -37,6 +37,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
             if (speakerResponse.Success)
             {
                 speakerResponse.Message = "Successfully created";
+                speakerResponse.statusCode = 201;
                 var speaker = mapper.Map<Speaker>(request);
                 speaker.CreateDate = DateTime.Now;
                 speaker.CreatedBy = "yusuf";

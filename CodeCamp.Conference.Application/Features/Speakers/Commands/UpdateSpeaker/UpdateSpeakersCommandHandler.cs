@@ -29,6 +29,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
 
             if (SpeakerToUpdate == null)
             {
+                speakerResponse.statusCode = 404;
                 speakerResponse.Success=false;
                 speakerResponse.Message = "Speaker not found";
                 throw new NotFoundException(nameof(Speaker), request.SpeakerId);
@@ -39,6 +40,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
 
             if (validationResult.Errors.Count > 0)
             {
+                
                 speakerResponse.Success=false;
                 speakerResponse.ValidationErrors=new List<string>();
                 foreach (var error in validationResult.Errors)
@@ -50,6 +52,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.UpdateSpeak
 
             if (speakerResponse.Success)
             {
+                speakerResponse.statusCode = 200;
                 speakerResponse.Message = "update successfully";
                 mapper.Map(request, SpeakerToUpdate, typeof(UpdateSpeakersCommand), typeof(Speaker));
                 await repository.UpdateAsync(SpeakerToUpdate);

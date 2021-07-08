@@ -24,7 +24,7 @@ namespace CodeCamp.Conference.Identity
         {
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-            services.AddDbContext<CodeCampIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("GloboTicketIdentityConnectionString"),
+            services.AddDbContext<CodeCampIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CodeCampIdentityString"),
                 b => b.MigrationsAssembly(typeof(CodeCampIdentityDbContext).Assembly.FullName)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

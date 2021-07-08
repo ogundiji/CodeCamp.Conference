@@ -29,6 +29,8 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp
 
             if (response.Success)
             {
+                response.statusCode = 200;
+                response.Message = "Successfully Retrieved record";
                 response.data= mapper.Map<CampDto[]>(allCampRecord);
             }
             return response;

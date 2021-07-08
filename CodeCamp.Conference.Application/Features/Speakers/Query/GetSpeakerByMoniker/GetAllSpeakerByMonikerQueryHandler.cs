@@ -26,8 +26,9 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Query.GetSpeakerByMo
 
             if (response.Success)
             {
+                response.statusCode = 200;
                 response.Message = "Successfully Retrieved Record";
-                response.data = mapper.Map<SpeakerDto[]>(allSpeakerRecord);
+                response.data = mapper.Map<SpeakerVm[]>(allSpeakerRecord);
             }
            
             return response;

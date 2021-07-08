@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Query.GetCampById
 {
-    public class CampDto
+    public class CampByIdDto
     {
         public Guid CampId { get; set; }
         public string Name { get; set; }

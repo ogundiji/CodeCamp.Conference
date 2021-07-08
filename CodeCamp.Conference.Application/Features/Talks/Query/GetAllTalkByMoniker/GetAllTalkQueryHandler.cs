@@ -26,7 +26,13 @@ namespace CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalkByMonik
                 .GetTalksByMonikerAsync(request.moniker, request.includeSpeakers);
 
 
-            response.data= mapper.Map<TalkDto[]>(allTalkRecord);
+            if (response.Success)
+            {
+                response.statusCode = 200;
+                response.data = mapper.Map<TalkDto[]>(allTalkRecord);
+                response.Message = "successfully retrieved record";
+            }
+           
 
             return response;
         }

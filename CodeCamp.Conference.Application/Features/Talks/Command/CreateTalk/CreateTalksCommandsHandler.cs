@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CodeCamp.Conference.Application.Contracts;
 using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Application.Exceptions;
 using CodeCamp.Conference.Domain.Entities;
@@ -17,11 +18,13 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
         private readonly IMapper mapper;
         private readonly ITalkRepository talkRepository;
         private readonly ISpeakerRepository speakerRepository;
-        public CreateTalksCommandsHandler(IMapper mapper, ITalkRepository talkRepository,ISpeakerRepository speakerRepository)
+        private readonly ILoggedInUserService loggedInUserService;
+        public CreateTalksCommandsHandler(IMapper mapper, ILoggedInUserService loggedInUserService, ITalkRepository talkRepository,ISpeakerRepository speakerRepository)
         {
             this.mapper = mapper;
             this.talkRepository = talkRepository;
             this.speakerRepository = speakerRepository;
+            this.loggedInUserService = loggedInUserService;
         }
 
         public async Task<CreateTalksCommandResponse> Handle(CreateTalksCommand request, CancellationToken cancellationToken)
@@ -32,7 +35,6 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
 
             var speaker = await speakerRepository.GetByIdAsync(request.SpeakerId);
            
-
             if (speaker == null)
             {
                 talkResponse.statusCode = 404;
@@ -57,6 +59,8 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
                 talkResponse.Message = "Created Successfully";
                 request.speaker = speaker;
                 var talk = mapper.Map<Talk>(request);
+                talk.CreateDate = DateTime.Now;
+                talk.CreatedBy = loggedInUserService.UserId;
                 await talkRepository.AddAsync(talk);
             }
 

@@ -54,7 +54,6 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.UpdateCamp
                 campResponse.statusCode = 200;
                 mapper.Map(request, CampToUpdate, typeof(UpdateCampCommand), typeof(Camp));
                 await campRepository.UpdateAsync(CampToUpdate);
-
             }
 
             return campResponse;

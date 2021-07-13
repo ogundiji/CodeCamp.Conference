@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using CodeCamp.Conference.Application.Contracts;
 using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Application.Exceptions;
 using CodeCamp.Conference.Domain.Entities;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,11 +16,13 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
         private readonly ICampRepository campRepository;
         private readonly ITalkRepository talkRepository;
         private readonly IMapper mapper;
-        public CreateCampCommandHandler(ICampRepository campRepository, IMapper mapper, ITalkRepository talkRepository)
+        private readonly ILoggedInUserService loggedInUserService;
+        public CreateCampCommandHandler(ICampRepository campRepository, IMapper mapper, ITalkRepository talkRepository, ILoggedInUserService loggedInUserService)
         {
             this.campRepository = campRepository;
             this.talkRepository = talkRepository;
             this.mapper = mapper;
+            this.loggedInUserService = loggedInUserService;
         }
 
         public async Task<CreateCampCommandResponse> Handle(CreateCampCommand request, CancellationToken cancellationToken)
@@ -27,7 +31,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
             var campValidation = new CreateCampCommandValidator(campRepository);
             var campValidationResult = await campValidation.ValidateAsync(request);
 
-            var talk = await talkRepository.GetByIdAsync(request.TalkId);
+            var talk = await talkRepository.GetByIdAsync(request.TalkId); 
 
 
             if (talk == null)
@@ -53,6 +57,8 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
                 campResponse.statusCode = 201;
                 request.talks = talk;
                 var campToCreate= mapper.Map<Camp>(request);
+                campToCreate.CreatedBy = loggedInUserService.UserId;
+                campToCreate.CreateDate = DateTime.Now;
                 await campRepository.AddAsync(campToCreate);
             }
 

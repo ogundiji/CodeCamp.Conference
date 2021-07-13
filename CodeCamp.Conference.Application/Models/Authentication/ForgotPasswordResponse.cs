@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Models.Authentication
 {
-    public class AuthenticationResponse:BaseResponse
+    public class ForgotPasswordResponse:BaseResponse
     {
-        public string Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Token { get; set; }
+        public string token { get; set; }
+        public string userId { get; set; }
 
-        public AuthenticationResponse():base()
+        public ForgotPasswordResponse():base()
         {
 
         }

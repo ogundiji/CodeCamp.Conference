@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Application.Models.Authentication
 {
-    public class RegistrationResponse:BaseResponse
+    public class EmailConfirmationResponse:BaseResponse
     {
-        public string UserId { get; set; }
-        public RegistrationResponse():base()
+        public string token { get; set; }
+        public string userId { get; set; }
+        public EmailConfirmationResponse():base()
         {
-
         }
     }
 }

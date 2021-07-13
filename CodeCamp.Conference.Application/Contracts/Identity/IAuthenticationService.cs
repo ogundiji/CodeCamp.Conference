@@ -7,5 +7,8 @@ namespace CodeCamp.Conference.Application.Contracts.Identity
     {
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
         Task<RegistrationResponse> RegisterAsync(RegistrationRequest request);
+        Task<EmailConfirmationResponse> ConfirmEmail(EmailConfirmationRequest request);
+        Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request);
+
     }
 }

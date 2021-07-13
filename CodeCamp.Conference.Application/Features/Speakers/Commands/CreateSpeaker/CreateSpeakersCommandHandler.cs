@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CodeCamp.Conference.Application.Contracts;
 using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Domain.Entities;
 using MediatR;
@@ -13,10 +14,12 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
-        public CreateSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper)
+        private readonly ILoggedInUserService loggedInUserService; 
+        public CreateSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper, ILoggedInUserService loggedInUserService)
         {
             this.speakerRepository = speakerRepository;
             this.mapper = mapper;
+            this.loggedInUserService = loggedInUserService;
         }
         public async Task<CreateSpeakerCommandResponse> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
         {
@@ -40,7 +43,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
                 speakerResponse.statusCode = 201;
                 var speaker = mapper.Map<Speaker>(request);
                 speaker.CreateDate = DateTime.Now;
-                speaker.CreatedBy = "yusuf";
+                speaker.CreatedBy = loggedInUserService.UserId;
                 await speakerRepository.AddAsync(speaker);
             }
             return speakerResponse;

@@ -6,6 +6,7 @@ using CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEventDate
 using CodeCamp.Conference.Application.Features.Camps.Query.GetCampById;
 using CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,8 +14,10 @@ using System.Threading.Tasks;
 
 namespace CodeCamp.Conference.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+
     public class CampController : ControllerBase
     {
         private readonly IMediator mediator;

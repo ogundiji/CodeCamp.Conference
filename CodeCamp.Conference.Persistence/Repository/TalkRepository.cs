@@ -1,4 +1,5 @@
 ﻿using CodeCamp.Conference.Application.Contracts.Persistence;
+using CodeCamp.Conference.Application.Exceptions;
 using CodeCamp.Conference.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,9 +17,31 @@ namespace CodeCamp.Conference.Persistence.Repository
         {
             this.context = context;
         }
+
+        public async Task DisableTalk(Guid id)
+        {
+            var talkToDisable = await context.Talks.FirstOrDefaultAsync(x => x.TalkId == id && !x.isDeleted);
+
+            if (talkToDisable == null)
+                throw new NotFoundException(nameof(Talk), id);
+
+
+            talkToDisable.isDeleted = true;
+        }
+
+        public async Task EnableTalk(Guid id)
+        {
+            var talkToDisable = await context.Talks.FirstOrDefaultAsync(x => x.TalkId == id && !x.isDeleted);
+
+            if (talkToDisable == null)
+                throw new NotFoundException(nameof(Talk), id);
+
+            talkToDisable.isDeleted = false;
+        }
+
         public async Task<Talk> GetSingleTalkByMonikerAsync(string moniker, Guid talkId, bool includeSpeakers = false)
         {
-            IQueryable<Talk> query = context.Talks;
+            IQueryable<Talk> query = context.Talks.Where(x=>x.isDeleted==false);
 
             if (includeSpeakers)
             {
@@ -35,7 +58,7 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<Talk[]> GetTalksByMonikerAsync(string moniker, bool includeSpeakers = false)
         {
-            IQueryable<Talk> query = context.Talks;
+            IQueryable<Talk> query = context.Talks.Where(x => x.isDeleted == false);
 
             if (includeSpeakers)
             {
@@ -50,6 +73,7 @@ namespace CodeCamp.Conference.Persistence.Repository
 
             return await query.ToArrayAsync();
         }
+
 
         public async Task<bool> VerifyTalkTitle(string title)
         {

@@ -1,4 +1,5 @@
 ﻿using CodeCamp.Conference.Application.Contracts.Persistence;
+using CodeCamp.Conference.Application.Exceptions;
 using CodeCamp.Conference.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,12 +20,33 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<bool> CheckIfMonikerExist(string moniker)
         {
-            return await context.Camps.AnyAsync(x => x.Moniker.ToUpper() == moniker.ToUpper());
+            return await context.Camps.AnyAsync(x => x.Moniker.ToUpper() == moniker.ToUpper() && !x.isDeleted);
+        }
+
+        public async Task DisableCamp(Guid id)
+        {
+            var campToDisable = await context.Camps.FirstOrDefaultAsync(x => x.CampId == id && !x.isDeleted);
+
+            if (campToDisable == null)
+                throw new NotFoundException(nameof(Camp), id);
+
+
+            campToDisable.isDeleted = true;
+        }
+
+        public async Task EnableCamp(Guid id)
+        {
+            var campToDisable = await context.Camps.FirstOrDefaultAsync(x => x.CampId == id && !x.isDeleted);
+
+            if (campToDisable == null)
+                throw new NotFoundException(nameof(Camp), id);
+
+            campToDisable.isDeleted = false;
         }
 
         public async Task<Camp[]> GetAllCampsAsync(bool includeTalks = false)
         {
-            IQueryable<Camp> query = context.Camps;
+            IQueryable<Camp> query = context.Camps.Where(x=>x.isDeleted==false);
 
             if (includeTalks)
             {
@@ -40,7 +62,7 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<Camp[]> GetAllCampsByEventDate(DateTime dateTime, bool includeTalks = false)
         {
-            IQueryable<Camp> query = context.Camps;
+            IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false);
                 
 
             if (includeTalks)
@@ -58,7 +80,7 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<Camp> GetCampAsync(string moniker, bool includeTalks = false)
         {
-            IQueryable<Camp> query = context.Camps;
+            IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false);
 
             if (includeTalks)
             {

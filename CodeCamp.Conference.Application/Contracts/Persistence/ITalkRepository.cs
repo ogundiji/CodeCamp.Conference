@@ -9,5 +9,7 @@ namespace CodeCamp.Conference.Application.Contracts.Persistence
         Task<Talk> GetSingleTalkByMonikerAsync(string moniker, Guid talkId, bool includeSpeakers = false);
         Task<Talk[]> GetTalksByMonikerAsync(string moniker, bool includeSpeakers = false);
         Task<bool> VerifyTalkTitle(string title);
+        Task DisableTalk(Guid id);
+        Task EnableTalk(Guid id);
     }
 }

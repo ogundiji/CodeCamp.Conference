@@ -1,4 +1,5 @@
-﻿using CodeCamp.Conference.Domain.Common;
+﻿using CodeCamp.Conference.Application.Contracts;
+using CodeCamp.Conference.Domain.Common;
 using CodeCamp.Conference.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,8 +13,10 @@ namespace CodeCamp.Conference.Persistence
 {
     public class ApplicationDbContext:DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        private readonly ILoggedInUserService loggedInUserService;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILoggedInUserService loggedInUserService) :base(options)
         {
+            this.loggedInUserService = loggedInUserService;
         }
 
         public DbSet<Camp> Camps { get; set; }
@@ -28,12 +31,14 @@ namespace CodeCamp.Conference.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreateDate = DateTime.Now;
-
+                        entry.Entity.CreatedBy = loggedInUserService.UserId;
                         break;
+
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
-
+                        entry.Entity.LastModifiedBy = loggedInUserService.UserId;
                         break;
+
                 }
             }
             return base.SaveChangesAsync(cancellationToken);

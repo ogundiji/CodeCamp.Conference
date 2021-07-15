@@ -55,10 +55,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
             if (campResponse.Success)
             {
                 campResponse.statusCode = 201;
-                request.talks = talk;
                 var campToCreate= mapper.Map<Camp>(request);
-                campToCreate.CreatedBy = loggedInUserService.UserId;
-                campToCreate.CreateDate = DateTime.Now;
                 await campRepository.AddAsync(campToCreate);
             }
 

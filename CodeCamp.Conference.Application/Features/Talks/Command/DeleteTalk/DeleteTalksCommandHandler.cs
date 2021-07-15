@@ -1,18 +1,22 @@
-﻿using CodeCamp.Conference.Application.Contracts.Persistence;
+﻿using CodeCamp.Conference.Application.Contracts;
+using CodeCamp.Conference.Application.Contracts.Persistence;
 using CodeCamp.Conference.Application.Exceptions;
 using CodeCamp.Conference.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
 
 namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 {
     public class DeleteTalksCommandHandler : IRequestHandler<DeleteTalkCommand, DeleteTalkCommandResponse>
     {
         private readonly ITalkRepository talkRepository;
-        public DeleteTalksCommandHandler(ITalkRepository talkRepository)
+        private readonly ILoggedInUserService LoggedInUserService;
+        public DeleteTalksCommandHandler(ITalkRepository talkRepository, ILoggedInUserService LoggedInUserService)
         {
             this.talkRepository = talkRepository;
+            this.LoggedInUserService = LoggedInUserService;
         }
 
         public async Task<DeleteTalkCommandResponse> Handle(DeleteTalkCommand request, CancellationToken cancellationToken)
@@ -30,6 +34,9 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk
 
             if (talkDeleteResponse.Success)
             {
+                talkToDelete.isDeleted = true;
+                talkToDelete.DeletedBy = LoggedInUserService.UserId;
+                talkToDelete.dateDeleted = DateTime.Now;
                 talkDeleteResponse.statusCode = 200;
                 talkDeleteResponse.Message = "Successfully Deleted";
                 await talkRepository.DeleteAsync(talkToDelete);

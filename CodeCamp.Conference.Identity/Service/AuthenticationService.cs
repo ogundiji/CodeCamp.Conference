@@ -53,10 +53,7 @@ namespace CodeCamp.Conference.Identity.Service
             if (response.Success)
             {
                 JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
-                response.Id = user.Id;
                 response.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-                response.Email = user.Email;
-                response.UserName = user.UserName;
                 response.Message = "Login Successful";
                 response.statusCode = 200;
             }

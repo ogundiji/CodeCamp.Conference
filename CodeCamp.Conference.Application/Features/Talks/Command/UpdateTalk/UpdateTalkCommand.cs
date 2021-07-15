@@ -11,6 +11,6 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk
         public string Abstract { get; set; }
         public int Level { get; set; }
         public Guid SpeakerId { get; set; }
-        public Speaker speaker { get; set; }
+       
     }
 }

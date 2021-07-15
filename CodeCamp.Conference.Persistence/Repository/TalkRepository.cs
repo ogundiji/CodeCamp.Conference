@@ -39,6 +39,12 @@ namespace CodeCamp.Conference.Persistence.Repository
             talkToDisable.isDeleted = false;
         }
 
+        public async Task<Talk[]> GetAllTalk()
+        {
+            var result = context.Talks.Include(x => x.Speaker).Where(x => x.isDeleted == false);
+            return await result.ToArrayAsync();
+        }
+
         public async Task<Talk> GetSingleTalkByMonikerAsync(string moniker, Guid talkId, bool includeSpeakers = false)
         {
             IQueryable<Talk> query = context.Talks.Where(x=>x.isDeleted==false);
@@ -77,7 +83,7 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<bool> VerifyTalkTitle(string title)
         {
-            return await context.Talks.AnyAsync(x => x.Title.ToUpper() == title);
+            return await (context.Talks.AnyAsync(x => x.Title.ToUpper() == title));
         }
     }
 }

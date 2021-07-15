@@ -35,7 +35,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
         }
         private async Task<bool> CheckTalkTitleExist(CreateTalksCommand e, CancellationToken token)
         {
-            return await talkRepository.VerifyTalkTitle(e.Title);
+            return !(await talkRepository.VerifyTalkTitle(e.Title));
         }
     }
 

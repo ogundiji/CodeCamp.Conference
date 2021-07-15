@@ -4,15 +4,19 @@ using CodeCamp.Conference.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+using CodeCamp.Conference.Application.Contracts;
 
 namespace CodeCamp.Conference.Application.Features.Camps.Command.DeleteCamp
 {
     public class DeleteCampCommandHandler : IRequestHandler<DeleteCampCommand, DeleteCampResponse>
     {
         private readonly ICampRepository campRepository;
-        public DeleteCampCommandHandler(ICampRepository campRepository)
+        private readonly ILoggedInUserService loggedInUserService;
+        public DeleteCampCommandHandler(ICampRepository campRepository, ILoggedInUserService loggedInUserService)
         {
             this.campRepository = campRepository;
+            this.loggedInUserService = loggedInUserService;
         }
         public async Task<DeleteCampResponse> Handle(DeleteCampCommand request, CancellationToken cancellationToken)
         {
@@ -28,6 +32,9 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.DeleteCamp
 
             if (deleteCampResponse.Success)
             {
+                campToDelete.isDeleted = true;
+                campToDelete.dateDeleted = DateTime.Now;
+                campToDelete.DeletedBy = loggedInUserService.UserId;
                 deleteCampResponse.statusCode = 200;
                 await campRepository.DeleteAsync(campToDelete);
             }

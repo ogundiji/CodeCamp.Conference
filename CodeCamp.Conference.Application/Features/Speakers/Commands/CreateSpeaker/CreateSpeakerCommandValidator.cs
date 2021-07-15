@@ -34,7 +34,7 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
 
         private async Task<bool> CheckIfSpeakerExist(CreateSpeakerCommand e, CancellationToken token)
         {
-            return await speakerRepository.CheckIfGithubExist(e.GitHub);
+            return !(await speakerRepository.CheckIfGithubExist(e.GitHub));
         }
     }
 }

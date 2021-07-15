@@ -14,12 +14,11 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
-        private readonly ILoggedInUserService loggedInUserService; 
-        public CreateSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper, ILoggedInUserService loggedInUserService)
+        public CreateSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper)
         {
             this.speakerRepository = speakerRepository;
             this.mapper = mapper;
-            this.loggedInUserService = loggedInUserService;
+           
         }
         public async Task<CreateSpeakerCommandResponse> Handle(CreateSpeakerCommand request, CancellationToken cancellationToken)
         {
@@ -42,8 +41,6 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.CreateSpeak
                 speakerResponse.Message = "Successfully created";
                 speakerResponse.statusCode = 201;
                 var speaker = mapper.Map<Speaker>(request);
-                speaker.CreateDate = DateTime.Now;
-                speaker.CreatedBy = loggedInUserService.UserId;
                 await speakerRepository.AddAsync(speaker);
             }
             return speakerResponse;

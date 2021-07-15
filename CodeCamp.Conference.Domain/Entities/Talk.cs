@@ -10,7 +10,7 @@ namespace CodeCamp.Conference.Domain.Entities
         public string Title { get; set; }
         public string Abstract { get; set; }
         public int Level { get; set; }
-        public string SpeakerId { get;set; }
+        public Guid SpeakerId { get;set; }
         public Speaker Speaker { get; set; }
     }
 }

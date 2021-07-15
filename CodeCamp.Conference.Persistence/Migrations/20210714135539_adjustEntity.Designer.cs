@@ -4,14 +4,16 @@ using CodeCamp.Conference.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodeCamp.Conference.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210714135539_adjustEntity")]
+    partial class adjustEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,57 +136,6 @@ namespace CodeCamp.Conference.Persistence.Migrations
                     b.ToTable("Speakers");
                 });
 
-            modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.Student", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StudentId");
-
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.StudentAddress", b =>
-                {
-                    b.Property<int>("StudentAddressId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Zipcode")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentAddressId");
-
-                    b.HasIndex("StudentId")
-                        .IsUnique();
-
-                    b.ToTable("StudentAddress");
-                });
-
             modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.Talk", b =>
                 {
                     b.Property<Guid>("TalkId")
@@ -236,17 +187,6 @@ namespace CodeCamp.Conference.Persistence.Migrations
                     b.ToTable("Talks");
                 });
 
-            modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.StudentAddress", b =>
-                {
-                    b.HasOne("CodeCamp.Conference.Domain.Entities.Student", "Student")
-                        .WithOne("Address")
-                        .HasForeignKey("CodeCamp.Conference.Domain.Entities.StudentAddress", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.Talk", b =>
                 {
                     b.HasOne("CodeCamp.Conference.Domain.Entities.Camp", "Camp")
@@ -267,11 +207,6 @@ namespace CodeCamp.Conference.Persistence.Migrations
             modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.Camp", b =>
                 {
                     b.Navigation("Talks");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Domain.Entities.Student", b =>
-                {
-                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,6 +5,8 @@ using CodeCamp.Conference.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+using CodeCamp.Conference.Application.Contracts;
 
 namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeaker
 {
@@ -12,10 +14,12 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
     {
         private readonly ISpeakerRepository speakerRepository;
         private readonly IMapper mapper;
-        public DeleteSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper)
+        private readonly ILoggedInUserService loggedInUserService;
+        public DeleteSpeakersCommandHandler(ISpeakerRepository speakerRepository, IMapper mapper, ILoggedInUserService loggedInUserService)
         {
             this.speakerRepository = speakerRepository;
             this.mapper = mapper;
+            this.loggedInUserService = loggedInUserService;
         }
        
 
@@ -34,9 +38,13 @@ namespace CodeCamp.Conference.Application.Features.Speakers.Commands.DeleteSpeak
 
             if (speakerResponse.Success)
             {
+                speakerToDelete.isDeleted = true;
+                speakerToDelete.dateDeleted = DateTime.Now;
+                speakerToDelete.DeletedBy = loggedInUserService.UserId;
                 speakerResponse.statusCode = 200;
                 speakerResponse.Message = "Successfully Deleted Record";
-                await speakerRepository.DeleteAsync(speakerToDelete);
+                
+                await speakerRepository.UpdateAsync(speakerToDelete);
             }
 
             return speakerResponse;

@@ -23,26 +23,7 @@ namespace CodeCamp.Conference.Persistence.Repository
             return await context.Camps.AnyAsync(x => x.Moniker.ToUpper() == moniker.ToUpper() && !x.isDeleted);
         }
 
-        public async Task DisableCamp(Guid id)
-        {
-            var campToDisable = await context.Camps.FirstOrDefaultAsync(x => x.CampId == id && !x.isDeleted);
-
-            if (campToDisable == null)
-                throw new NotFoundException(nameof(Camp), id);
-
-
-            campToDisable.isDeleted = true;
-        }
-
-        public async Task EnableCamp(Guid id)
-        {
-            var campToDisable = await context.Camps.FirstOrDefaultAsync(x => x.CampId == id && !x.isDeleted);
-
-            if (campToDisable == null)
-                throw new NotFoundException(nameof(Camp), id);
-
-            campToDisable.isDeleted = false;
-        }
+       
 
         public async Task<Camp[]> GetAllCampsAsync(bool includeTalks = false)
         {

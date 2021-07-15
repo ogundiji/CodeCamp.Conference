@@ -18,13 +18,13 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
         private readonly IMapper mapper;
         private readonly ITalkRepository talkRepository;
         private readonly ISpeakerRepository speakerRepository;
-        private readonly ILoggedInUserService loggedInUserService;
-        public CreateTalksCommandsHandler(IMapper mapper, ILoggedInUserService loggedInUserService, ITalkRepository talkRepository,ISpeakerRepository speakerRepository)
+       
+        public CreateTalksCommandsHandler(IMapper mapper, ITalkRepository talkRepository,ISpeakerRepository speakerRepository)
         {
             this.mapper = mapper;
             this.talkRepository = talkRepository;
             this.speakerRepository = speakerRepository;
-            this.loggedInUserService = loggedInUserService;
+            
         }
 
         public async Task<CreateTalksCommandResponse> Handle(CreateTalksCommand request, CancellationToken cancellationToken)
@@ -57,10 +57,8 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
             {
                 talkResponse.statusCode = 200;
                 talkResponse.Message = "Created Successfully";
-                request.speaker = speaker;
                 var talk = mapper.Map<Talk>(request);
-                talk.CreateDate = DateTime.Now;
-                talk.CreatedBy = loggedInUserService.UserId;
+                talk.Speaker = speaker;
                 await talkRepository.AddAsync(talk);
             }
 

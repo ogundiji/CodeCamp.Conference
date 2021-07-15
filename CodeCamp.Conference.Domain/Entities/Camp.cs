@@ -16,6 +16,7 @@ namespace CodeCamp.Conference.Domain.Entities
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+        public Guid TalkId { get; set; }
         public ICollection<Talk> Talks { get; set; }
     }
 }

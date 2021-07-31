@@ -19,7 +19,5 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.UpdateCamp
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        public Guid TalkId { get; set; }
-        public Talk talks { get; set; }
     }
 }

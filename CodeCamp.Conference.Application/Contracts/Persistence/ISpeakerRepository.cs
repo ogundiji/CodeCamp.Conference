@@ -11,6 +11,7 @@ namespace CodeCamp.Conference.Application.Contracts.Persistence
     {
         Task<Speaker[]> GetSpeakersByMonikerAsync(string moniker);
         Task<bool> CheckIfGithubExist(string Github);
+        Task<Speaker> GetActiveSpeaker(Guid id);
         
     }
 }

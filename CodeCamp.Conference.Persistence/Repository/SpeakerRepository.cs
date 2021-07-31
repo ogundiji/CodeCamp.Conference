@@ -43,6 +43,11 @@ namespace CodeCamp.Conference.Persistence.Repository
             speakerToDisable.isDeleted = false;
         }
 
+        public async Task<Speaker> GetActiveSpeaker(Guid id)
+        {
+            return await context.Speakers.FirstOrDefaultAsync(x => x.SpeakerId == id && x.isDeleted == false);
+        }
+
         public async Task<Speaker[]> GetSpeakersByMonikerAsync(string moniker)
         {
             IQueryable<Speaker> query = context.Talks

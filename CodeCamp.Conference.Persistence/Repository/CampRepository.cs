@@ -25,32 +25,16 @@ namespace CodeCamp.Conference.Persistence.Repository
 
        
 
-        public async Task<Camp[]> GetAllCampsAsync(bool includeTalks = false)
+        public async Task<Camp[]> GetAllCampsAsync()
         {
             IQueryable<Camp> query = context.Camps.Where(x=>x.isDeleted==false);
-
-            if (includeTalks)
-            {
-                query = query
-                  .Include(c => c.Talks.Select(t => t.Speaker));
-            }
-
-            // Order It
-            query = query.OrderByDescending(c => c.EventDate);
-
+      
             return await query.ToArrayAsync();
         }
 
-        public async Task<Camp[]> GetAllCampsByEventDate(DateTime dateTime, bool includeTalks = false)
+        public async Task<Camp[]> GetAllCampsByEventDate(DateTime dateTime)
         {
             IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false);
-                
-
-            if (includeTalks)
-            {
-                query = query
-                  .Include(c => c.Talks.Select(t => t.Speaker));
-            }
 
             // Order It
             query = query.OrderByDescending(c => c.EventDate)
@@ -59,14 +43,9 @@ namespace CodeCamp.Conference.Persistence.Repository
             return await query.ToArrayAsync();
         }
 
-        public async Task<Camp> GetCampAsync(string moniker, bool includeTalks = false)
+        public async Task<Camp> GetCampAsync(string moniker)
         {
             IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false);
-
-            if (includeTalks)
-            {
-                query = query.Include(c => c.Talks.Select(t => t.Speaker));
-            }
 
             // Query It
             query = query.Where(c => c.Moniker == moniker);

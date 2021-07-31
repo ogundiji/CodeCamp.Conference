@@ -9,6 +9,7 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
         public string Title { get; set; }
         public string Abstract { get; set; }
         public int Level { get; set; }
+        public Guid campId { get; set; }
         public Guid SpeakerId { get; set; }
     }
 }

@@ -14,13 +14,12 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
     public class CreateCampCommandHandler : IRequestHandler<CreateCampCommand, CreateCampCommandResponse>
     {
         private readonly ICampRepository campRepository;
-        private readonly ITalkRepository talkRepository;
+        
         private readonly IMapper mapper;
         private readonly ILoggedInUserService loggedInUserService;
-        public CreateCampCommandHandler(ICampRepository campRepository, IMapper mapper, ITalkRepository talkRepository, ILoggedInUserService loggedInUserService)
+        public CreateCampCommandHandler(ICampRepository campRepository, IMapper mapper, ILoggedInUserService loggedInUserService)
         {
             this.campRepository = campRepository;
-            this.talkRepository = talkRepository;
             this.mapper = mapper;
             this.loggedInUserService = loggedInUserService;
         }
@@ -31,16 +30,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
             var campValidation = new CreateCampCommandValidator(campRepository);
             var campValidationResult = await campValidation.ValidateAsync(request);
 
-            var talk = await talkRepository.GetByIdAsync(request.TalkId); 
-
-
-            if (talk == null)
-            {
-                campResponse.Success = false;
-                campResponse.statusCode = 404;
-                throw new NotFoundException(nameof(Talk), request.TalkId);
-            }
-
+     
             if (campValidationResult.Errors.Count > 0)
             {
                 campResponse.Success = false;
@@ -55,6 +45,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
             if (campResponse.Success)
             {
                 campResponse.statusCode = 201;
+                campResponse.Message = "successfully created";
                 var campToCreate= mapper.Map<Camp>(request);
                 await campRepository.AddAsync(campToCreate);
             }

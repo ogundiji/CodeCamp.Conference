@@ -39,7 +39,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Command.CreateCamp
 
         private async Task<bool> VerifyMoniker(CreateCampCommand e, CancellationToken token)
         {
-            return await campRepository.CheckIfMonikerExist(e.Moniker);
+            return !(await campRepository.CheckIfMonikerExist(e.Moniker));
         }
     }
 }

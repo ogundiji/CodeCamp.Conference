@@ -18,12 +18,14 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
         private readonly IMapper mapper;
         private readonly ITalkRepository talkRepository;
         private readonly ISpeakerRepository speakerRepository;
+        private readonly ICampRepository campRepository;
        
-        public CreateTalksCommandsHandler(IMapper mapper, ITalkRepository talkRepository,ISpeakerRepository speakerRepository)
+        public CreateTalksCommandsHandler(IMapper mapper, ITalkRepository talkRepository, ICampRepository campRepository,ISpeakerRepository speakerRepository)
         {
             this.mapper = mapper;
             this.talkRepository = talkRepository;
             this.speakerRepository = speakerRepository;
+            this.campRepository = campRepository;
             
         }
 
@@ -32,8 +34,9 @@ namespace CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk
             var talkResponse = new CreateTalksCommandResponse();
             var validation = new CreateTalksCommandValidator(talkRepository);
             var validationResult = await validation.ValidateAsync(request);
+            var camp = await campRepository.GetByIdAsync(request.campId);
 
-            var speaker = await speakerRepository.GetByIdAsync(request.SpeakerId);
+            var speaker = await speakerRepository.GetActiveSpeaker(request.SpeakerId);
            
             if (speaker == null)
             {

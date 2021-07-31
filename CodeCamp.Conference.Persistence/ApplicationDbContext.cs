@@ -22,17 +22,7 @@ namespace CodeCamp.Conference.Persistence
         public DbSet<Camp> Camps { get; set; }
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<Talk> Talks { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<StudentAddress> StudentAddress { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Student>()
-                     .HasOne(a => a.Address)
-                     .WithOne(b => b.Student)
-                     .HasForeignKey<StudentAddress>(b => b.StudentId);
-        }
-
+        
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
@@ -49,6 +39,12 @@ namespace CodeCamp.Conference.Persistence
                         entry.Entity.LastModifiedBy = loggedInUserService.UserId;
                         break;
 
+                    case EntityState.Deleted:
+                        entry.Entity.dateDeleted = DateTime.Now;
+                        entry.Entity.DeletedBy = loggedInUserService.UserId;
+                        break;
+
+        
                 }
             }
             return base.SaveChangesAsync(cancellationToken);

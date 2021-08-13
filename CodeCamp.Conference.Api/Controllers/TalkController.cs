@@ -1,6 +1,7 @@
 ﻿using CodeCamp.Conference.Application.Features.Talks.Command.CreateTalk;
 using CodeCamp.Conference.Application.Features.Talks.Command.DeleteTalk;
 using CodeCamp.Conference.Application.Features.Talks.Command.UpdateTalk;
+using CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalk;
 using CodeCamp.Conference.Application.Features.Talks.Query.GetAllTalkByMoniker;
 using CodeCamp.Conference.Application.Features.Talks.Query.GetSingleTalkByMoniker;
 using CodeCamp.Conference.Application.Features.Talks.Query.GetTalkById;
@@ -24,6 +25,17 @@ namespace CodeCamp.Conference.Api.Controllers
            this.mediator = mediator;
         }
 
+
+        [HttpGet]
+        [Route("GetAllTalkRecord")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await mediator.Send(new GetTalkListQuery()));
+        }
+
+
         [HttpGet]
         [Route("GetAllTalk/{moniker}/{includeSpeaker}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,7 +46,7 @@ namespace CodeCamp.Conference.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllTalk/{talkId}/{moniker}/{includeSpeaker}")]
+        [Route("GetTalk/{talkId}/{moniker}/{includeSpeaker}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string moniker, bool includeSpeaker,Guid talkId)

@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using CodeCamp.Conference.Application.Contracts.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +19,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp
         public async Task<CampResponse> Handle(GetAllCampQuery request, CancellationToken cancellationToken)
         {
             
-            var allCampRecord = await campRepository.GetAllCampsAsync(request.includeSpeakers);
+            var allCampRecord = await campRepository.GetAllCampsAsync();
             var response = new CampResponse();
 
 

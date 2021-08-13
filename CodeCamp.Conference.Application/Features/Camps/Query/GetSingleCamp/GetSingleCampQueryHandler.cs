@@ -17,7 +17,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
         }
         public async Task<CampResponse> Handle(GetSingleCampQuery request, CancellationToken cancellationToken)
         {
-            var campRecord = await campRepository.GetCampAsync(request.moniker, request.includeTalks);
+            var campRecord = await campRepository.GetCampAsync(request.moniker);
             var response = new CampResponse();
 
             if (response.Success)

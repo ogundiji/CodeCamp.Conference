@@ -34,11 +34,11 @@ namespace CodeCamp.Conference.Persistence.Repository
 
         public async Task<Camp[]> GetAllCampsByEventDate(DateTime dateTime)
         {
-            IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false);
+            IQueryable<Camp> query = context.Camps.Where(x => x.isDeleted == false && x.EventDate.Date==dateTime.Date);
 
             // Order It
-            query = query.OrderByDescending(c => c.EventDate)
-              .Where(c => c.EventDate == dateTime);
+            query = query.OrderByDescending(c => c.EventDate);
+             
 
             return await query.ToArrayAsync();
         }

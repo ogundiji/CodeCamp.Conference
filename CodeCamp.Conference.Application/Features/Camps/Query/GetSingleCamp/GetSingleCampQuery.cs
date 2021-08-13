@@ -10,6 +10,5 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetSingleCamp
     public class GetSingleCampQuery:IRequest<CampResponse>
     {
         public string moniker { get; set; }
-        public bool includeTalks { get; set; }
     }
 }

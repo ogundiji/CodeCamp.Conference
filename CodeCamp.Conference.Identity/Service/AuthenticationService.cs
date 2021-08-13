@@ -16,13 +16,13 @@ namespace CodeCamp.Conference.Identity.Service
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager,
+        public AuthenticationService(UserManager<User> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -57,11 +57,11 @@ namespace CodeCamp.Conference.Identity.Service
                 response.Message = "Login Successful";
                 response.statusCode = 200;
             }
-           
+
             return response;
         }
 
-        public async Task<EmailConfirmationResponse> ConfirmEmail(EmailConfirmationRequest request)
+        public async Task<EmailConfirmationResponse> GenerateEmailConfirmation(EmailConfirmationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             var response = new EmailConfirmationResponse();
@@ -77,12 +77,14 @@ namespace CodeCamp.Conference.Identity.Service
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 response.token = token;
-                response.userId = user.Id;
+                response.userId = user.Id.ToString();
                 response.Message = "successfully generated token";
             }
-            
+
             return response;
         }
+
+        // public async Task<> 
 
         public async Task<ForgotPasswordResponse> ForgotPassword(ForgotPasswordRequest request)
         {
@@ -100,11 +102,11 @@ namespace CodeCamp.Conference.Identity.Service
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 response.token = token;
-                response.userId = user.Id;
+                response.userId = user.Id.ToString();
                 response.Message = "Successfully  generate token";
                 response.token = token;
             }
-             
+
             return response;
         }
 
@@ -123,7 +125,7 @@ namespace CodeCamp.Conference.Identity.Service
                 throw new Exception($"Username '{request.Username}' already exists.");
             }
 
-            var user = new ApplicationUser
+            var user = new User
             {
                 Email = request.Email,
                 Firstname = request.Firstname,
@@ -136,11 +138,11 @@ namespace CodeCamp.Conference.Identity.Service
 
             if (existingEmail == null)
             {
-                var result = await _userManager.CreateAsync(user, request.Password);
+                var result = await _userManager.CreateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    response.UserId = user.Id;
+                    response.UserId = user.Id.ToString();
                     response.statusCode = 200;
                     return response;
                 }
@@ -158,28 +160,35 @@ namespace CodeCamp.Conference.Identity.Service
         public async Task<ResetPasswordResponse> ResetPassword(ResetPasswordRequest request)
         {
             var response = new ResetPasswordResponse();
-            var user =  await _userManager.FindByEmailAsync(request.email);
+            var user = await _userManager.FindByEmailAsync(request.email);
 
-            //if (user == null)
-            //{
-            //    response.Success = false;
-            //    response.statusCode = 400;
-            //    throw new Exception("No record");
-            //}
+            if (user == null)
+            {
+                response.Success = false;
+                response.statusCode = 400;
+                response.Message = "Bad Request";
+            }
 
-            //if (response.Success)
-            //{
-            //    var result = await _userManager.ResetPasswordAsync(user, request.token, request.email);
-            //    if (result.Succeeded)
-            //    {
+            if (response.Success)
+            {
+                var result = await _userManager.ResetPasswordAsync(user, request.token, request.email);
+                if (result.Succeeded)
+                {
+                    response.statusCode = 200;
+                    response.Message = "password reset successfully";
+                }
+                else
+                {
+                    response.statusCode = 400;
+                    response.Message = "Bad Request";
+                }
+            }
 
-            //    }
-            //}
 
             return response;
         }
 
-        private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
+        private async Task<JwtSecurityToken> GenerateToken(User user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
@@ -196,7 +205,7 @@ namespace CodeCamp.Conference.Identity.Service
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id)
+                new Claim("uid", user.Id.ToString())
             }
             .Union(userClaims)
             .Union(roleClaims);
@@ -213,6 +222,68 @@ namespace CodeCamp.Conference.Identity.Service
             return jwtSecurityToken;
         }
 
+        public async Task<ConfirmedEmailResponse> ConfirmEmail(ConfirmedEmailRequest request)
+        {
+            var response = new ConfirmedEmailResponse();
+            var user = await _userManager.FindByEmailAsync(request.Email);
 
+            if (user == null)
+            {
+                response.statusCode = 404;
+                response.Success = false;
+            }
+
+            if (response.Success)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, request.token);
+                if (result.Succeeded)
+                {
+                    response.statusCode = 200;
+                    response.userId = user.Id.ToString();
+                }
+                else
+                {
+                    response.statusCode = 500;
+                    response.Success = false;
+                }
+            }
+
+            return response;
+        }
+
+        public async Task<ChangePasswordResponse> ChangePassword(ChangePasswordRequest request)
+        {
+            var response = new ChangePasswordResponse();
+            var user = await _userManager.FindByIdAsync(request.userId);
+
+            if (user == null)
+            {
+                response.Success = false;
+                response.statusCode = 400;
+                response.Message = "Bad Request";
+            }
+
+            if (await _userManager.IsEmailConfirmedAsync(user))
+            {
+                response.Success = false;
+                response.statusCode = 400;
+                response.Message = "You have not Confirm your Email";
+            }
+
+            var result = await _userManager.AddPasswordAsync(user, request.password);
+            if (result.Succeeded)
+            {
+                response.statusCode = 200;
+                response.Message = "password successfully added to this account";
+            }
+            else
+            {
+                response.statusCode = 500;
+                response.Message = "Bad Request";
+                response.Success = true;
+            }
+
+            return response;
+        }
     }
 }

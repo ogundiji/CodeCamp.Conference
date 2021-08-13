@@ -33,7 +33,7 @@ namespace CodeCamp.Conference.Api
                 {
                     var services = scope.ServiceProvider;
                     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var userManager = services.GetRequiredService<UserManager<User>>();
 
                     await Identity.Seed.DefaultUser.SeedAsync(userManager);
                 }

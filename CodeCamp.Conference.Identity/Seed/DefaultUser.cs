@@ -10,9 +10,9 @@ namespace CodeCamp.Conference.Identity.Seed
 {
     public static class DefaultUser
     {
-        public static async Task SeedAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAsync(UserManager<User> userManager)
         {
-            var applicationUser = new ApplicationUser
+            var applicationUser = new User
             {
                 Firstname = "John",
                 Lastname = "Smith",

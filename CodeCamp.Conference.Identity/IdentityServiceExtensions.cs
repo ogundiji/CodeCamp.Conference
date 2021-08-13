@@ -27,7 +27,7 @@ namespace CodeCamp.Conference.Identity
             services.AddDbContext<CodeCampIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CodeCampIdentityString"),
                 b => b.MigrationsAssembly(typeof(CodeCampIdentityDbContext).Assembly.FullName)));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<User,Role>()
                 .AddEntityFrameworkStores<CodeCampIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();

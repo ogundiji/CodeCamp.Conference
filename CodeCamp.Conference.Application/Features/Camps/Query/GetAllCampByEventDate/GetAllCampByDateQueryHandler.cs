@@ -21,7 +21,7 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEvent
         {
             var response = new CampResponse();
             var allCampRecordByDate = await campRepository
-                .GetAllCampsByEventDate(request.dateTime, request.includeSpeakers);
+                .GetAllCampsByEventDate(request.dateTime);
 
             if (response.Success)
             {

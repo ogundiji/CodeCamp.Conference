@@ -9,6 +9,5 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCamp
 {
     public class GetAllCampQuery:IRequest<CampResponse>
     {
-        public bool includeSpeakers { get; set; }
     }
 }

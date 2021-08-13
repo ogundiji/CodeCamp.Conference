@@ -10,6 +10,5 @@ namespace CodeCamp.Conference.Application.Features.Camps.Query.GetAllCampByEvent
     public class GetAllCampByDateQuery:IRequest<CampResponse>
     {
         public DateTime dateTime { get; set; }
-        public bool includeSpeakers { get; set; }
     }
 }

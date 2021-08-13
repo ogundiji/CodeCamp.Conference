@@ -30,18 +30,18 @@ namespace CodeCamp.Conference.Api.Controllers
         [Route("GetAllCamps")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromHeader]bool includeSpeaker)
+        public async Task<IActionResult> Get()
         {
-            return Ok(await mediator.Send(new GetAllCampQuery() {includeSpeakers=includeSpeaker }));
+            return Ok(await mediator.Send(new GetAllCampQuery()));
         }
 
         [HttpGet]
-        [Route("GetAllCampByEventDate/{eventDate}/{includeSpeakers}")]
+        [Route("GetAllCampByEventDate/{eventDate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllCampByEventDate(DateTime eventDate,bool includeSpeakers )
+        public async Task<IActionResult> GetAllCampByEventDate(DateTime eventDate )
         {
-            return Ok(await mediator.Send(new GetAllCampByDateQuery() {dateTime=eventDate,includeSpeakers=includeSpeakers }));
+            return Ok(await mediator.Send(new GetAllCampByDateQuery() {dateTime=eventDate}));
         }
 
         [HttpGet]
@@ -54,12 +54,12 @@ namespace CodeCamp.Conference.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetCampByMoniker/{moniker}/{includeTalks}")]
+        [Route("GetCampByMoniker/{moniker}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCampByMoniker(string moniker,bool includeTalks)
+        public async Task<IActionResult> GetCampByMoniker(string moniker)
         {
-            return Ok(await mediator.Send(new GetSingleCampQuery() { moniker=moniker,includeTalks=includeTalks }));
+            return Ok(await mediator.Send(new GetSingleCampQuery() { moniker=moniker}));
         }
 
 

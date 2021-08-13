@@ -4,14 +4,16 @@ using CodeCamp.Conference.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodeCamp.Conference.Identity.Migrations
 {
     [DbContext(typeof(CodeCampIdentityDbContext))]
-    partial class CodeCampIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210813105745_alter-table")]
+    partial class altertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

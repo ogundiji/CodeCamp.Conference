@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeCamp.Conference.Identity.Migrations
 {
     [DbContext(typeof(CodeCampIdentityDbContext))]
-    [Migration("20210813105745_alter-table")]
-    partial class altertable
+    [Migration("20210909024214_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,65 +20,6 @@ namespace CodeCamp.Conference.Identity.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImgClass")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MenuGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MenuName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MenuUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MenuGroupId");
-
-                    b.ToTable("Menus");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.MenuGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("menuGroups");
-                });
 
             modelBuilder.Entity("CodeCamp.Conference.Identity.Models.Role", b =>
                 {
@@ -119,37 +60,6 @@ namespace CodeCamp.Conference.Identity.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.RoleMenu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("menuId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("roleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("menuId");
-
-                    b.HasIndex("roleId");
-
-                    b.ToTable("roleMenus");
                 });
 
             modelBuilder.Entity("CodeCamp.Conference.Identity.Models.User", b =>
@@ -370,36 +280,6 @@ namespace CodeCamp.Conference.Identity.Migrations
                     b.HasDiscriminator().HasValue("UserRole");
                 });
 
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.Menu", b =>
-                {
-                    b.HasOne("CodeCamp.Conference.Identity.Models.MenuGroup", "MenuGroup")
-                        .WithMany("Menu")
-                        .HasForeignKey("MenuGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MenuGroup");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.RoleMenu", b =>
-                {
-                    b.HasOne("CodeCamp.Conference.Identity.Models.Menu", "menu")
-                        .WithMany("RoleMenus")
-                        .HasForeignKey("menuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CodeCamp.Conference.Identity.Models.Role", "role")
-                        .WithMany("RoleMenus")
-                        .HasForeignKey("roleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("menu");
-
-                    b.Navigation("role");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("CodeCamp.Conference.Identity.Models.Role", null)
@@ -462,20 +342,8 @@ namespace CodeCamp.Conference.Identity.Migrations
                         .HasForeignKey("UserId1");
                 });
 
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.Menu", b =>
-                {
-                    b.Navigation("RoleMenus");
-                });
-
-            modelBuilder.Entity("CodeCamp.Conference.Identity.Models.MenuGroup", b =>
-                {
-                    b.Navigation("Menu");
-                });
-
             modelBuilder.Entity("CodeCamp.Conference.Identity.Models.Role", b =>
                 {
-                    b.Navigation("RoleMenus");
-
                     b.Navigation("UserRoles");
                 });
 

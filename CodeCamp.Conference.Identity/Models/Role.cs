@@ -11,7 +11,6 @@ namespace CodeCamp.Conference.Identity.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
-        public ICollection<RoleMenu> RoleMenus { get; set; }
 
     }
 }

@@ -34,8 +34,9 @@ namespace CodeCamp.Conference.Api
                     var services = scope.ServiceProvider;
                     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<Role>>();
 
-                    await Identity.Seed.DefaultUser.SeedAsync(userManager);
+                    await Identity.Seed.DefaultUser.SeedAsync(userManager,roleManager);
                 }
                 catch (Exception ex)
                 {

@@ -53,6 +53,7 @@ namespace CodeCamp.Conference.Api.Controllers
             return Ok(await mediator.Send(new GetCampQuery() { campId=campId }));
         }
 
+
         [HttpGet]
         [Route("GetCampByMoniker/{moniker}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

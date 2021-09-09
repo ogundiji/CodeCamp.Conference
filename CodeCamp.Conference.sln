@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCamp.Conference.Api", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCamp.Conference.Identity", "CodeCamp.Conference.Identity\CodeCamp.Conference.Identity.csproj", "{1860EC25-AA95-4702-AA1E-E266918DEEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamp.Conference.UI", "CodeCamp.Conference.UI\CodeCamp.Conference.UI.csproj", "{9AA20A01-9DB6-444B-9297-349C68AFE6C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCamp.Conference.UI", "CodeCamp.Conference.UI\CodeCamp.Conference.UI.csproj", "{9AA20A01-9DB6-444B-9297-349C68AFE6C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
